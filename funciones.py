@@ -20,8 +20,22 @@ def main():
     print(texto_libro[7000:8000])
     texto_limpio=limpiar_texto(texto_libro)
     lista_palabras = texto_libro[6900:].split(" ")
-    print(lista_palabras)
+    print(lista_palabras[:100])
+    print(len(lista_palabras))
+    lista_palabras_sucias = texto_libro[6949:].split(" ")
+    lista = []
+    for palabra in lista_palabras:
+        if palabra != ' ':
+            lista.append(palabra)
+    print("===========")
+    print(lista[0:100])
+    listas_palabras_limpias = limpiar_lista_palabras(lista_palabras_sucias)
+    print("--------------")
+    print(len(listas_palabras_limpias))
+
+
     listas_palabras_limpias=texto_libro[0:100]
+    print(listas_palabras_limpias[-200:0])
     
     
 
