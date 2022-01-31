@@ -1,36 +1,67 @@
 
+from sklearn.utils import check_array
 import random
 
-def gato()->None:
+def gato()->int:
     #   1 2 3     A B C
     #   4 5 6     D E F
     #   7 8 9     G H I
     #
-    #   1 | 2 | 3
+    #   X | X | O
     #  -----------
-    #   4 | 5 | 6
+    #   O | X | X
     #  -----------
-    #   7 | 8 | 9
+    #   X | O | O
 
     tablero = "123456789"
     tablero_dicc = { llave:llave for llave in tablero}
-    en_juego = True
+    #tablero_dicc = { '1':'X','2':'X','3':'O','4':'O','5':'X','6':'X','7':'X','8':'O','9':'O'}
 
+    en_juego = True
+    gano = False
+    empate = False
     while en_juego:
         mostrar_tablero(tablero_dicc)
-        casilla_elegida = False
-        while casilla_elegida == False:
-            opcion = input("Seleccione casilla:")
-            casilla_elegida = asigna_casilla("X",opcion,tablero_dicc)
-
-        gano = checar_si_gano("X",tablero_dicc)
-        if gano == True:
+        if jugadas_disponibles(tablero_dicc) == False:
             en_juego = False
+            empate   = True
         else:
-            opcion = computadora_escoge_casilla(tablero_dicc)
-            casilla_elegida = asigna_casilla("O",opcion,tablero_dicc)
-            gano = checar_si_gano("O",tablero_dicc) 
+            casilla_elegida = False
+            while casilla_elegida == False:
+                opcion = input("Seleccione casilla:")
+                casilla_elegida = asigna_casilla("X",opcion,tablero_dicc)
 
+            gano = checar_si_gano("X",tablero_dicc)
+            if gano == True:
+                en_juego = False
+            else:
+                if jugadas_disponibles(tablero_dicc) == False:
+                    en_juego = False
+                    empate   = True
+                else:
+                    opcion = computadora_escoge_casilla(tablero_dicc)
+                    casilla_elegida = asigna_casilla("O",opcion,tablero_dicc)
+                    if checar_si_gano("O",tablero_dicc) == True:
+                        en_juego = False
+            
+    if gano == True:
+        print("¡Felicidades!")
+        return 1
+    else:
+        if empate == True:
+            print("-Empate-")
+            return 0
+        else:
+            print("¡Lo siento!")
+            return -1
+
+
+def jugadas_disponibles(tablero:dict)->bool:
+    #print(tablero)
+    for llave,valor in tablero.items():
+        if llave ==valor :
+            return True
+    return False
 
 def asigna_casilla(simbolo:str,opcion:str,tablero:dict)->bool:
     '''Asigna la casilla'''
