@@ -25,4 +25,5 @@ def despliega_resultados(estado_juego):
 
 
 if __name__ == "__main__":
+    
     main()
