@@ -1,0 +1,91 @@
+from clases import Libro, Categoria, Autor
+import argparse
+import csv
+
+def lee_archivo_csv(nombre_archivo:str)->list:
+    lista_libros =[]
+    try:
+        with open(nombre_archivo,'r') as fh:
+            csv_reader = csv.reader(fh,delimiter=",")
+            for renglon in csv_reader:
+                id = renglon[0].strip('\"')
+                url = renglon[2].strip('\"')
+                titulo = renglon[3].strip('\"')
+                autor = renglon[4].strip('\"')
+                id_categoria = renglon[5].strip('\"')
+                libro = Libro(id, url, titulo, autor, id_categoria)
+                lista_libros.append(libro)
+    except IOError:
+        print(IOError.errno)
+        print("Error no se pudo abrir el archivo:",nombre_archivo)
+    return lista_libros
+
+def lee_archivo_csv_old(nombre_archivo:str)->list:
+    lista_libros = []
+    try:
+        with open(nombre_archivo,'r') as fh:
+            lista = fh.readlines()
+        for elemento in lista:
+            lista_elementos = elemento.split(",") # separamos x coma
+            id = lista_elementos[0].strip('\"')
+            url = lista_elementos[2].strip('\"')
+            titulo = lista_elementos[3].strip('\"')
+            autor = lista_elementos[4].strip('\"')
+            id_categoria = lista_elementos[5].strip('\"')
+            libro = Libro(id, url, titulo, autor, id_categoria)
+            lista_libros.append(libro)
+    except IOError:
+        print(IOError.errno)
+        print("Error no se pudo abrir el archivo:",nombre_archivo)
+    return lista_libros
+
+def crea_diccionario_autores(lista:list)->dict:
+    diccionario = {}
+    for libro in lista:
+        nombres = libro.autor.split(" ")
+        nombres.append(libro.autor)
+        for nombre in nombres:
+            actualiza_autor(diccionario, nombre, libro)
+    return diccionario
+
+def actualiza_autor(diccionario:dict,nombre:str,libro:Libro)->None:
+    if libro.autor not in diccionario:
+        diccionario[nombre] = [libro]
+    else:
+        lista = diccionario[nombre]
+        lista.append(libro)
+
+def despliega_libros(lista_libros:list)->None:
+    for libro in lista_libros:
+        print(libro)
+
+def busca_x_autor(diccionario:dict, autor:str)->list:
+    if autor in diccionario:
+        lista_libros = diccionario[autor]
+    else:
+        lista_libros = []
+    return lista_libros
+
+def main(archivo:str,palabra:str)->None:
+    lista_libros = lee_archivo_csv(archivo)
+    #print(lista_libros)
+    d_autores = crea_diccionario_autores(lista_libros)
+    lista_resultados = busca_x_autor(d_autores,palabra)
+    print("Libros de autor:",palabra)
+    despliega_libros(lista_resultados)
+    #for autor,libros in d_autores.items():
+    #     print(autor,len(libros))
+    #     despliega_libros(libros)
+    #     print("--------------")   
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f","--file",type=str,metavar="file",
+                        default="booklist2000.csv",
+                        help="Archivo a leer (CSV)")
+    parser.add_argument("-a","--author",type=str,metavar="author",
+                        help="Autor por buscar/encontrar")
+    args = parser.parse_args()
+    archivo = args.file
+    autor   = args.author
+    main(archivo,autor)

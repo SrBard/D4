@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>
+            Estrenos de Cartelera
+        </title>
+    </head>
+    <body>
+        <div>
+            <h1>Estrenos de Cartelera</h1>
+            <h2>Películas a ver en Hermosillo</h2>
+        </div>
+        <div>
+            <p>Las películas:</p>
+            <ul>{% for id,pelicula in peliculas.items() %}
+                <li>
+                    <a href="/pelicula/{{id}}">{{pelicula.titulo}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </body>
+</html>

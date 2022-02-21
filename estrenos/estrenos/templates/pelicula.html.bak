@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>
+            {{identificador}}
+        </title>
+    </head>
+    <body>
+        <div>
+            <h1>{{identificador}}</h1>
+        </div>
+    </body>
+    <footer>
+        Regresar a <a href="/">Página principal</a>
+    </footer>
+</html>
+        

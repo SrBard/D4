@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>
+            {{movie.titulo}}
+        </title>
+        <style>
+            h1 {color: #d65206;}
+            .fecha {color: #6241bd;}
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>{{movie.titulo}}</h1>
+        </div>
+        <div><img src="{{movie.link_foto}}" style='width: 200px;'></div>
+        <div class="fecha">
+            Fecha de estreno:{{movie.fecha_estreno}}
+        </div>
+        <div>
+            <p>{{movie.descripcion}}</p>
+        </div>
+    </body>
+    <footer>
+        Regresar a <a href="/">Página principal</a>
+    </footer>
+</html>
+        
