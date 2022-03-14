@@ -1,22 +1,21 @@
-<html>
-    <head>
-        <title>
-            Estrenos de Cartelera
-        </title>
-    </head>
-    <body>
+{% extends "base.html" %}
+{% block title %}Estrenos de Cartelera{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
         <div>
             <h1>Estrenos de Cartelera</h1>
             <h2>Películas a ver en Hermosillo</h2>
+            <h3>{% if session  %}Bienvenidi@ usuari@ {{session['usuario']}}{% endif %}</h3>
         </div>
         <div>
             <p>Las películas:</p>
             <ul>{% for id,pelicula in peliculas.items() %}
                 <li>
-                    <a href="/pelicula/{{id}}">{{pelicula.titulo}}</a>
+                    <a href="/pelicula/{{id}}" class="liga">{{pelicula.titulo}}</a>
                 </li>
                 {% endfor %}
             </ul>
         </div>
-    </body>
-</html>
+{% endblock %}

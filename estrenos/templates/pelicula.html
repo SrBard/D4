@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ movie.titulo }}{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+
+        <div>
+            <h1>{{movie.titulo}}</h1>
+        </div>
+        <div><img src="{{movie.url}}" style='width: 200px;'></div>
+        <div class="fecha">
+            Fecha de estreno:{{movie.fecha_estreno}}
+        </div>
+        <div class="genero">
+            Género:<a href="/genero/{{movie.genero}}" class="liga">{{movie.genero}}</a>
+        </div>
+        <div class="genero">
+            Usuario:<a href="/usuario/{{movie.usuario}}" class="liga">{{movie.usuario}}</a>
+        </div>
+        <div>
+            <p>{{movie.sinopsis}}</p>
+        </div>
+{% endblock %}
+
+
+        

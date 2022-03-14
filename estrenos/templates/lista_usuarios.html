@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Lista de usuarios{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+        <div>
+            <h1>Usuarios</h1>
+            <h2>Lista de usuarios</h2>
+            <h3><a href="/usuarios/agregar">Agregar</a> usuario</h3>
+        </div>
+        <div>
+            <ul>{% for id,d_usuario in dicc_usuarios.items() %}
+                <li>
+                    <a href="/usuarios/{{id}}" class="liga">{{d_usuario.nombre}}</a>|
+                    <a href="/password/{{id}}" class="liga">modificar password</a>   
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Estrenos por género{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+        <div>
+            <h1>Estrenos de Cartelera</h1>
+            <h2>Género</h2>
+        </div>
+
+        <div>
+            <h2>{{genero}}</h2>
+            
+            <ul>{% for pelicula in peliculas %}
+                <li>
+                    <a href="/pelicula/{{pelicula['id']}}" class="liga">{{pelicula['titulo']}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+{% endblock %}

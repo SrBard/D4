@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        h1 {color: #27296d;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            width:400px;
+            align-self: center;
+        }
+        .fecha {color: #6241bd;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            color: #333;
+            background-color: #f5c7f7;
+        }
+        .liga {
+            font-family: Tahoma, Geneva, sans-serif;
+            font-size: 20px;
+            letter-spacing: 0px;
+            word-spacing: 2px;
+            color: #D667FF;
+            font-weight: normal;
+            text-decoration: none solid rgb(68, 68, 68);
+            font-style: normal;
+            font-variant: normal;
+            text-transform: none;
+        }
+        .liga:hover {
+            text-decoration: underline;
+        }
+        .liga_pie {
+            font-family: "Arial Black", Gadget, sans-serif;
+            font-size: 14px;
+            letter-spacing: -0.8px;
+            word-spacing: 2px;
+            color: #a393eb;
+            font-weight: normal;
+            text-decoration: none;
+            font-style: normal;
+            font-variant: normal;
+            text-transform: none;
+        }
+        .liga_pie:hover {
+            text-decoration: underline;
+        }
+        .liga_pie:visited {
+            color:#730277 ;
+        }
+
+    </style>
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+</body>
+<footer>
+{% block footer %}
+<div><div><a href="/" class="liga_pie">Inicio</a></div>
+<div><a href="/genero/lista" class="liga_pie">Por Géneros</a></div><div><a href="/anio/" class="liga_pie">Por año</a></div></div>
+<div><a href="/usuario/" class="liga_pie">Lista por usuarios</a></div>
+<div><a href="/usuarios/" class="liga_pie">Modificar usuarios</a></div>
+{% endblock %}
+</footer>
+</html>

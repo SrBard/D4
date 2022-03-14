@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+        <div>
+            <h1>Login a Cartelera</h1>
+            <h2>Introduzca su usuario y password</h2>
+        </div>
+        <div>
+            <form action="" method="POST">
+                <div>
+                <label for="usuario">Username:</label>
+                <input type="text" id="usuario" name="usuario" >
+                </div>
+                <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                </div>
+               
+                <input type="submit" name="enviar" value="Enviar">
+            </form>
+        </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ 
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>Veronica's Software</title>
+</head>
+<body>
+  
+  <section class="form-register" >
+    
+  
+    <form action="" method="POST" autocomplete="off">
+    <h4>Registro de casilleros</h4>
+    <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingrese sus Nombres">
+    <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese sus Apellidos">
+    <input class="controls" type="text" name="num_em" id="num_em" placeholder="Ingrese su Numero de empleado">
+    <p>Casilleros disponibles </p>
+    <select class="controls" value="default" type="select" name="Casilleros" id="selectCasi" placeholder="Ingrese su Correo" >
+      {% for disponible in disponibles  %}
+        <option value="{{disponible}}" >{{disponible}}</option>
+      {% endfor %}
+   
+    </select>
+
+    <input class="botons" type="submit" value="Registrar" name="Regis">
+    
+    
+   </form>
+   <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category,message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          <span>{{message}} </span>
+          <button type="button" id="b" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            
+          </button>
+    </div>
+    
+    {% endfor %}  
+    {% endif %}
+    {% endwith %}
+   </div>
+  </section>
+</body>
+</html>
