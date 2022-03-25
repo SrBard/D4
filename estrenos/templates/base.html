@@ -64,6 +64,33 @@
     {% endblock %}
 </head>
 <body>
+    <div><a href="/"><img src="/static/Movieson.png" width="400"></a></div>
+    <form action="/busqueda/" method="POST">
+    <div style="display:flex;">
+        
+            <div>
+                <label for="buscar">Buscar:</label>
+                <input type="text" id="buscar" name="buscar" placeholder="Busca títuto o sinopsis" size="40">
+            </div>
+            <div>
+                <input type="submit" name="enviar" value="Buscar">
+            </div>
+        
+    </div>
+    </form>
+    <div>
+    {% if 'usuario' in session  %}
+         <div><h3>{{session['usuario']}}</h3></div>
+         {% set imagen = "/static/avatar/%s.png" % session['usuario'] %}
+         {% if os.path.exists("."+imagen) %}
+         <div><img src="{{imagen}}" width="50"></div>
+         {% else %}
+         <div><img src="/static/avatar/avatar.png" width="50"></div>
+         {% endif %} 
+    {% else %}
+          <h3>Usuario invitado</h3>
+    {% endif %}
+    </div>
     {% block body %}
     {% endblock %}
 </body>
@@ -72,7 +99,12 @@
 <div><div><a href="/" class="liga_pie">Inicio</a></div>
 <div><a href="/genero/lista" class="liga_pie">Por Géneros</a></div><div><a href="/anio/" class="liga_pie">Por año</a></div></div>
 <div><a href="/usuario/" class="liga_pie">Lista por usuarios</a></div>
+{% if session['logged_in'] == True %}
 <div><a href="/usuarios/" class="liga_pie">Modificar usuarios</a></div>
+<div><a href="/logout/" class="liga_pie">Logout</a></div>
+{% else %}
+<div><a href="/login/" class="liga_pie">Login</a></div>
+{% endif %}
 {% endblock %}
 </footer>
 </html>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Lista de usuarios{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+        <div>
+            <h1>Avatar</h1>
+            <h2>Modificar avatar</h2>
+        </div>
+        <div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div>
+                    {% if os.path.exists('./static/usuarios/session["usuario"].png') %}
+                        <img src="/static/avatar/{{session['usuario']}}.png">
+                    {% else %}
+                        <img src="/static/avatar/avatar.png">
+                    {% endif %}
+                </div>
+                <div>
+                <label for='avatar'>Avatar:</label>
+                <input type='file' id='avatar' name='avatar'>
+                </div>
+                <div>
+                <input type="submit" name="enviar" value="Enviar">
+                </div>
+            </form>

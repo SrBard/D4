@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Búsqueda{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+        <div>
+            <h1>Búsqueda</h1>
+            <h2>Lista de películas encontradas</h2>
+        </div>
+        <div>
+            <ul>{% for id,pelicula in peliculas.items() %}
+                {% set titulo = pelicula.titulo %}
+                {% set distancia = pelicula.distancia %}
+                {% set frase = pelicula.frase %}
+                <li>
+                    <a href="/pelicula/{{id}}" class="liga">{{titulo}}</a><div>distancia:{{distancia}}</div><div>{{frase}}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+{% endblock %}

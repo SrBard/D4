@@ -1,4 +1,9 @@
 import csv
+import os
+
+
+from isort import file
+from sqlalchemy import false, true
 
 def lee_archivo_csv(archivo:str)->list:
     '''Lee un archivo CSV y regresa una lista de registros
@@ -12,7 +17,7 @@ def lee_archivo_csv(archivo:str)->list:
                 lista.append(renglon)
     except IOError:
         print(f"No se pudo leer el archivo {archivo}")
-    print (lista)
+   
     return lista
 
 def disponibles_casilleros(registros:list)->list:
@@ -40,10 +45,23 @@ def disponibles_casilleros(registros:list)->list:
     disponibles = sorted(set(casi_usados) ^ set(casi))
     
     return disponibles
-def Registar_casi(DATA:list):
+def si_esta_disponible(casilla:str)->bool:
+    lista=lee_archivo_csv("Registros.csv")
+    disponibles = disponibles_casilleros(lista)
+
+    return casilla in disponibles
+
+def Registar(DATA:list,archivo:str)-> None:
     print(DATA)
-    with open('Registros.csv', 'a', encoding='UTF8') as f:
+    with open(archivo, 'a', encoding='UTF8') as f:
         writer = csv.writer(f)
         writer.writerow(DATA)
         f.close()
-
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+        
+        
+def formato_file(filename)->str:
+    terminacion = filename.rsplit('.', 1)[1].lower()
+    return terminacion

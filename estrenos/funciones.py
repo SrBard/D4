@@ -1,5 +1,6 @@
 import csv
 from passlib.hash import sha256_crypt
+from Levenshtein import distance
 
 class Pelicula():
     def __init__(self,id,titulo,link_foto,fecha_estreno,descripcion):
@@ -133,7 +134,54 @@ def obten_campos(diccionario:dict,llave_d:str)->list:
     lista.extend(lista_campos)
     return lista
 
+def limpia_texto(texto:str)->str:
+    lista_simbolos = [',',';','.','-','_',':','¿','?','¡','!']
+    for simbolo in lista_simbolos:
+        texto = texto.replace(simbolo,'')
+    return texto
         
+def agrega_palabras(diccionario:dict, cadena:str, diccionario_pelicula):
+    minusculas = cadena.lower()
+    cadena_limpia = limpia_texto(minusculas)
+    palabras = cadena_limpia.split(" ")
+    for palabra in palabras:
+        if palabra not in diccionario:
+            diccionario[palabra] = [ diccionario_pelicula ]
+        else:
+            diccionario[palabra].append(diccionario_pelicula)
+
+
+def crea_superdiccionario(diccionario_peliculas:dict)->dict:
+    diccionario_palabras = {}
+    for id,pelicula in diccionario_peliculas.items():
+        titulo = pelicula['titulo']
+        sinopsis=pelicula['sinopsis']
+        agrega_palabras(diccionario_palabras,titulo,pelicula)
+        agrega_palabras(diccionario_palabras,sinopsis,pelicula)
+    return diccionario_palabras
+
+def compara_distancia(diccionario:dict,frase:str)->dict:
+    diccionario_resultados = {}
+    lista_tuplas = []
+    for llave, lista in diccionario.items():
+        L = distance(frase, llave) 
+        tupla = (llave, L)
+        lista_tuplas.append(tupla)
+    #ordenar lista
+    sorted_t = sorted(lista_tuplas, key=lambda tup:tup[1])
+    # [ ("memory",15),("memory",2),("memory",3)]
+    for t in sorted_t[0:6]:
+        llave = t[0]
+        distancia = t[1]
+        peliculas = diccionario[llave] #lista peliculas asociadas con la llave
+        for pelicula in peliculas: #extraemos peliculas de la lista
+            id = pelicula['id']
+            pelicula['distancia'] = distancia #agregamos distancia de la frase original
+            pelicula['frase'] = llave #agregamos la frase con la que la encontramos
+            diccionario_resultados[id] = pelicula
+    return diccionario_resultados
+
+
 if __name__ == "__main__":
     #listado = lee_archivo_csv("lista_estrenos.csv")
     #for pelicula in listado:

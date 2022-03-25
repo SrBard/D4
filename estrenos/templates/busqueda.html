@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Búsqueda{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+        <div>
+            <h1>Búsqueda</h1>
+            <h2>Lista de películas encontradas</h2>
+        </div>
+        <div>
+            <ul>{% for id,titulo in peliculas.items() %}
+                <li>
+                    <a href="/pelicula/{{id}}" class="liga">{{titulo}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+{% endblock %}
